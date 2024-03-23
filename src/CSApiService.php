@@ -96,18 +96,23 @@ class CSApiService
      * Sends a message to a room with optional persistence.
      *
      * @param string $room The room to send the message to
-     * @param string $encrypted_message The encrypted message to be sent
+     * @param string $message The message to be encrypted and sent
      * @param bool $persist (Optional) Whether to persist the message
      * @return JsonResponse The response as JSON
      */
-    public function sendMessage(string $room, string $encrypted_message, bool $persist = false): JsonResponse
+    public function sendMessage(string $room, string $message, bool $persist = false): JsonResponse
     {
+        $hashed_msg = JWT::encode([
+            'iss' => config('app.url'),
+            'message' => $message,
+        ], $this->csClientSecret, 'HS256');
+        
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->generateToken(),
             'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/message', [
             'room' => $room,
-            'hashed_msg' => $encrypted_message,
+            'hashed_msg' => $hashed_msg,
             'persist' => $persist,
         ]);
 
