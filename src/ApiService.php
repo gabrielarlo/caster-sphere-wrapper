@@ -53,12 +53,12 @@ class ApiService
         ]);
     }
 
-    public function sendMessage(string $name, string $encrypted_message, bool $persist = false): Response
+    public function sendMessage(string $room, string $encrypted_message, bool $persist = false): Response
     {
         return Http::withHeaders([
             'Authorization' => 'Basic ' . $this->generateToken(),
         ])->post($this->csUrl . '/message', [
-            'name' => $name,
+            'room' => $room,
             'hashed_msg' => $encrypted_message,
             'persist' => $persist,
         ]);
