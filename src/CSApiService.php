@@ -53,7 +53,7 @@ class CSApiService
         // Return the response as JSON
         return response()->json(json_decode($response->body()), $response->status());
     }
-=
+
     /**
      * Joins a room with the given name.
      *
@@ -72,7 +72,7 @@ class CSApiService
         // Return the response as JSON
         return response()->json(json_decode($response->body()), $response->status());
     }
-=
+
     /**
      * Leave a room by sending a POST request to the Caster Sphere API.
      *
