@@ -4,7 +4,7 @@ namespace NineCloud\CasterSphereWrapper;
 
 use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Http\Client\Response;
+use Illuminate\Http\JsonResponse;
 
 class CSApiService
 {
@@ -20,11 +20,11 @@ class CSApiService
     }
 
     /**
-     * Retrieves the list of rooms from the CS API.
+     * Retrieve a list of rooms from the specified URL using HTTP GET request.
      *
-     * @return Response The HTTP response containing the list of rooms.
+     * @return JsonResponse
      */
-    public function getRooms(): Response
+    public function getRooms(): JsonResponse
     {
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->generateToken(),
@@ -39,9 +39,9 @@ class CSApiService
      * Creates a new room with the given name.
      *
      * @param string $name The name of the room to create.
-     * @return Response The HTTP response from the API call.
+     * @return JsonResponse The JSON response containing the result of the room creation.
      */
-    public function createRoom(string $name): Response
+    public function createRoom(string $name): JsonResponse
     {
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->generateToken(),
@@ -53,15 +53,14 @@ class CSApiService
         // Return the response as JSON
         return response()->json(json_decode($response->body()), $response->status());
     }
-
+=
     /**
-     * Join to specific room.
+     * Joins a room with the given name.
      *
-     * @param string $name description
-     * @throws Response description of exception
-     * @return Response
+     * @param string $name The name of the room to join.
+     * @return JsonResponse The JSON response containing the room information.
      */
-    public function joinRoom(string $name): Response
+    public function joinRoom(string $name): JsonResponse
     {
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->generateToken(),
@@ -73,14 +72,14 @@ class CSApiService
         // Return the response as JSON
         return response()->json(json_decode($response->body()), $response->status());
     }
-
+=
     /**
-     * A function to leave a room.
+     * Leave a room by sending a POST request to the Caster Sphere API.
      *
      * @param string $name The name of the room to leave.
-     * @return Response
+     * @return JsonResponse The JSON response from the API.
      */
-    public function leaveRoom(string $name): Response
+    public function leaveRoom(string $name): JsonResponse
     {
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->generateToken(),
@@ -94,14 +93,14 @@ class CSApiService
     }
 
     /**
-     * Sends a message to a specified room.
+     * Sends a message to a room with optional persistence.
      *
      * @param string $room The room to send the message to
-     * @param string $encrypted_message The encrypted message to send
+     * @param string $encrypted_message The encrypted message to be sent
      * @param bool $persist (Optional) Whether to persist the message
-     * @return Response The HTTP response from the server
+     * @return JsonResponse The response as JSON
      */
-    public function sendMessage(string $room, string $encrypted_message, bool $persist = false): Response
+    public function sendMessage(string $room, string $encrypted_message, bool $persist = false): JsonResponse
     {
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->generateToken(),
