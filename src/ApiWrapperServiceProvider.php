@@ -15,8 +15,8 @@ class ApiWrapperServiceProvider extends ServiceProvider
     {
         if (function_exists('config_path')) {
             $this->publishes([
-                // get the config file
-            ], 'config');
+                __DIR__ . '/config/cswrapper.php' => config_path('cswrapper.php'),
+            ], 'cswrapper-config');
         }
     }
 }
