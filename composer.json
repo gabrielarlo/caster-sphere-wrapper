@@ -1,0 +1,30 @@
+{
+  "name": "ninecloud/caster-sphere-wrapper",
+  "description": "Caster Sphere API Wrapper",
+  "type": "library",
+  "authors": [
+    {
+      "name": "NineCloud",
+      "email": "gabrielarlo11@gmail.com"
+    }
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "^7.8",
+    "illuminate/support": "^11.0",
+    "php": ">=8.2",
+    "firebase/php-jwt": "^6.10"
+  },
+  "autoload": {
+    "psr-4": {
+      "NineCloud\\CasterSphereWrapper\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "NineCloud\\CasterSphereWrapper\\CasterSphereWrapperServiceProvider"
+      ]
+    }
+  },
+  "license": "MIT"
+}
