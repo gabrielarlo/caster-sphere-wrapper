@@ -6,7 +6,7 @@ use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\Response;
 
-class ApiService
+class CSApiService
 {
     protected $csUrl;
     protected $csClientId;
@@ -28,6 +28,7 @@ class ApiService
     {
         return Http::withHeaders([
             'Authorization' => 'Basic ' . $this->generateToken(),
+            'app-id' => $this->csClientId,
         ])->get($this->csUrl . '/rooms');
     }
 
@@ -41,6 +42,7 @@ class ApiService
     {
         return Http::withHeaders([
             'Authorization' => 'Basic ' . $this->generateToken(),
+            'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/create-room', [
             'name' => $name,
         ]);
@@ -57,6 +59,7 @@ class ApiService
     {
         return Http::withHeaders([
             'Authorization' => 'Basic ' . $this->generateToken(),
+            'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/join', [
             'name' => $name,
         ]);
@@ -72,6 +75,7 @@ class ApiService
     {
         return Http::withHeaders([
             'Authorization' => 'Basic ' . $this->generateToken(),
+            'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/leave', [
             'name' => $name,
         ]);
@@ -89,6 +93,7 @@ class ApiService
     {
         return Http::withHeaders([
             'Authorization' => 'Basic ' . $this->generateToken(),
+            'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/message', [
             'room' => $room,
             'hashed_msg' => $encrypted_message,
