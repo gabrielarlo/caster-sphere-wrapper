@@ -20,7 +20,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "NineCloud\\CasterSphereWrapper\\CasterSphereWrapperServiceProvider"
+        "NineCloud\\CasterSphereWrapper\\ApiWrapperServiceProvider"
       ]
     }
   },
