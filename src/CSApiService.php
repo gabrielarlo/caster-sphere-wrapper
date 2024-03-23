@@ -26,10 +26,13 @@ class CSApiService
      */
     public function getRooms(): Response
     {
-        return Http::withHeaders([
+        $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->generateToken(),
             'app-id' => $this->csClientId,
         ])->get($this->csUrl . '/rooms');
+
+        // Return the response as JSON
+        return response()->json(json_decode($response->body()), $response->status());
     }
 
     /**
@@ -40,12 +43,15 @@ class CSApiService
      */
     public function createRoom(string $name): Response
     {
-        return Http::withHeaders([
+        $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->generateToken(),
             'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/create-room', [
             'name' => $name,
         ]);
+
+        // Return the response as JSON
+        return response()->json(json_decode($response->body()), $response->status());
     }
 
     /**
@@ -57,12 +63,15 @@ class CSApiService
      */
     public function joinRoom(string $name): Response
     {
-        return Http::withHeaders([
+        $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->generateToken(),
             'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/join', [
             'name' => $name,
         ]);
+
+        // Return the response as JSON
+        return response()->json(json_decode($response->body()), $response->status());
     }
 
     /**
@@ -73,12 +82,15 @@ class CSApiService
      */
     public function leaveRoom(string $name): Response
     {
-        return Http::withHeaders([
+        $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->generateToken(),
             'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/leave', [
             'name' => $name,
         ]);
+
+        // Return the response as JSON
+        return response()->json(json_decode($response->body()), $response->status());
     }
 
     /**
@@ -91,7 +103,7 @@ class CSApiService
      */
     public function sendMessage(string $room, string $encrypted_message, bool $persist = false): Response
     {
-        return Http::withHeaders([
+        $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->generateToken(),
             'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/message', [
@@ -99,6 +111,9 @@ class CSApiService
             'hashed_msg' => $encrypted_message,
             'persist' => $persist,
         ]);
+
+        // Return the response as JSON
+        return response()->json(json_decode($response->body()), $response->status());
     }
 
     private function generateToken(): string
