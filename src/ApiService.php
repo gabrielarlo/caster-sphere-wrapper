@@ -19,6 +19,11 @@ class ApiService
         $this->csClientSecret = config('cswrapper.client_secret');
     }
 
+    /**
+     * Retrieves the list of rooms from the CS API.
+     *
+     * @return Response The HTTP response containing the list of rooms.
+     */
     public function getRooms(): Response
     {
         return Http::withHeaders([
@@ -26,6 +31,12 @@ class ApiService
         ])->get($this->csUrl . '/rooms');
     }
 
+    /**
+     * Creates a new room with the given name.
+     *
+     * @param string $name The name of the room to create.
+     * @return Response The HTTP response from the API call.
+     */
     public function createRoom(string $name): Response
     {
         return Http::withHeaders([
@@ -35,6 +46,13 @@ class ApiService
         ]);
     }
 
+    /**
+     * Join to specific room.
+     *
+     * @param string $name description
+     * @throws Response description of exception
+     * @return Response
+     */
     public function joinRoom(string $name): Response
     {
         return Http::withHeaders([
@@ -44,6 +62,12 @@ class ApiService
         ]);
     }
 
+    /**
+     * A function to leave a room.
+     *
+     * @param string $name The name of the room to leave.
+     * @return Response
+     */
     public function leaveRoom(string $name): Response
     {
         return Http::withHeaders([
@@ -53,6 +77,14 @@ class ApiService
         ]);
     }
 
+    /**
+     * Sends a message to a specified room.
+     *
+     * @param string $room The room to send the message to
+     * @param string $encrypted_message The encrypted message to send
+     * @param bool $persist (Optional) Whether to persist the message
+     * @return Response The HTTP response from the server
+     */
     public function sendMessage(string $room, string $encrypted_message, bool $persist = false): Response
     {
         return Http::withHeaders([
