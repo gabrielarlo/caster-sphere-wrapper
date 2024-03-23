@@ -27,7 +27,7 @@ class CSApiService
     public function getRooms(): Response
     {
         return Http::withHeaders([
-            'Authorization' => 'Basic ' . $this->generateToken(),
+            'Authorization' => 'Bearer ' . $this->generateToken(),
             'app-id' => $this->csClientId,
         ])->get($this->csUrl . '/rooms');
     }
@@ -41,7 +41,7 @@ class CSApiService
     public function createRoom(string $name): Response
     {
         return Http::withHeaders([
-            'Authorization' => 'Basic ' . $this->generateToken(),
+            'Authorization' => 'Bearer ' . $this->generateToken(),
             'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/create-room', [
             'name' => $name,
@@ -58,7 +58,7 @@ class CSApiService
     public function joinRoom(string $name): Response
     {
         return Http::withHeaders([
-            'Authorization' => 'Basic ' . $this->generateToken(),
+            'Authorization' => 'Bearer ' . $this->generateToken(),
             'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/join', [
             'name' => $name,
@@ -74,7 +74,7 @@ class CSApiService
     public function leaveRoom(string $name): Response
     {
         return Http::withHeaders([
-            'Authorization' => 'Basic ' . $this->generateToken(),
+            'Authorization' => 'Bearer ' . $this->generateToken(),
             'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/leave', [
             'name' => $name,
@@ -92,7 +92,7 @@ class CSApiService
     public function sendMessage(string $room, string $encrypted_message, bool $persist = false): Response
     {
         return Http::withHeaders([
-            'Authorization' => 'Basic ' . $this->generateToken(),
+            'Authorization' => 'Bearer ' . $this->generateToken(),
             'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/message', [
             'room' => $room,
