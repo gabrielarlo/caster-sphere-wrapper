@@ -8,14 +8,14 @@ class ApiWrapperServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/cswrapper.php', 'cswrapper');
+        $this->mergeConfigFrom(__DIR__ . '/config/cswrapper.php', 'cswrapper');
     }
 
     public function boot()
     {
         if (function_exists('config_path')) {
             $this->publishes([
-                __DIR__ . '/../config/cswrapper.php' => config_path('cswrapper.php'),
+                // get the config file
             ], 'config');
         }
     }
