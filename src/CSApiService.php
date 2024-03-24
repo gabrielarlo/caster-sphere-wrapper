@@ -47,7 +47,7 @@ class CSApiService
             'Authorization' => 'Bearer ' . $this->generateToken(),
             'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/create-room', [
-            'name' => $name,
+            'room' => $name,
         ]);
 
         // Return the response as JSON
@@ -66,7 +66,7 @@ class CSApiService
             'Authorization' => 'Bearer ' . $this->generateToken(),
             'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/join', [
-            'name' => $name,
+            'room' => $name,
         ]);
 
         // Return the response as JSON
@@ -85,7 +85,7 @@ class CSApiService
             'Authorization' => 'Bearer ' . $this->generateToken(),
             'app-id' => $this->csClientId,
         ])->post($this->csUrl . '/leave', [
-            'name' => $name,
+            'room' => $name,
         ]);
 
         // Return the response as JSON
