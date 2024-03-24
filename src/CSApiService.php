@@ -106,7 +106,7 @@ class CSApiService
             'iss' => config('app.url'),
             'message' => $message,
         ], $this->csClientSecret, 'HS256');
-        
+
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->generateToken(),
             'app-id' => $this->csClientId,
