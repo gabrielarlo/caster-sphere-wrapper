@@ -5,6 +5,7 @@ namespace NineCloud\CasterSphereWrapper;
 use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\JsonResponse;
+use App\Models\User;
 
 class CSApiService
 {
@@ -12,7 +13,7 @@ class CSApiService
     protected $csClientId;
     protected $csClientSecret;
 
-    public function __construct()
+    public function __construct(public User $user)
     {
         $this->csUrl = config('cswrapper.url');
         $this->csClientId = config('cswrapper.client_id');
@@ -125,8 +126,8 @@ class CSApiService
         $payload = [
             'platform' => 'web',
             'iss' => config('app.url'),
-            'username' => auth()->check() ? auth()->user()->email : null,
-            'sender_id' => auth()->check() ? auth()->id() : null,
+            'username' => $this->user->email,
+            'sender_id' => $this->user->id,
         ];
 
         $token = JWT::encode($payload, $this->csClientSecret, 'HS256');
