@@ -121,6 +121,19 @@ class CSApiService
         return response()->json(json_decode($response->body()), $response->status());
     }
 
+    public function sendNotification(array $data = []): JsonResponse
+    {
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $this->generateToken(),
+            'app-id' => $this->csClientId,
+        ])->post($this->csUrl . '/notify', [
+            'data' => $data
+        ]);
+
+        // Return the response as JSON
+        return response()->json(json_decode($response->body()), $response->status());
+    }
+
     private function generateToken(): string
     {
         $payload = [
